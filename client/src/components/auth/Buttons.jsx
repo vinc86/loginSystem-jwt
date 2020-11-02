@@ -1,33 +1,36 @@
-import React, { useContext, useState } from 'react'
-import { useHistory } from 'react-router-dom'
+import React, { useContext, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import UserContext from '../Context/UserContext';
 
 export default function Buttons() {
-   
-    const {userData,setUserData,login, setLogin} = useContext(UserContext);
-    const history = useHistory();
+  const {
+    userData,
+    setUserData,
+    login,
+    setLogin,
+  } = useContext(UserContext);
+  const history = useHistory();
 
-    const register =()=>history.push("/register");
-    const loginUser =()=>history.push("/login");
-    const logout =()=>{
-       /*  localStorage.removeItem("auth-token")
+  const register = () => history.push('/register');
+  const loginUser = () => history.push('/login');
+  const logout = () => {
+    /*  localStorage.removeItem("auth-token")
         localStorage.removeItem("user") */
-        localStorage.clear()
-        
-        setUserData({token: undefined, user: undefined})
-        /* setLogin(!login) */
-       window.location.replace("/")
-    }
-    return (
-        <div className="menu-buttons">
-            {!userData.token ? (
-                <>
-                    <button onClick={loginUser}>Login</button>
-                    <button onClick={register}>Register</button>
-                </>
-            ):(
-                <button onClick={logout} >Logout</button>
-            )}
-        </div>
-    )
+    localStorage.clear();
+
+    setUserData({ token: undefined, user: undefined });
+    setLogin(false);
+  };
+  return (
+    <div className="menu-buttons">
+      {!login ? (
+        <>
+          <button onClick={loginUser}>Login</button>
+          <button onClick={register}>Register</button>
+        </>
+      ) : (
+        <button onClick={logout}>Logout</button>
+      )}
+    </div>
+  );
 }
